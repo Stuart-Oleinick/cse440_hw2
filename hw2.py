@@ -97,6 +97,8 @@ right_wrong = 0
 training_dict = {}
 pos_words = []
 neg_words = []
+pos_avg = []
+neg_avg = []
 
 
 # for tup in training_documents:
@@ -123,6 +125,15 @@ for tup in training_featuresets:
             elif pos_neg == 'neg':
                 training_dict[k]-=1
 
+for v in training_dict.values():
+    if v>0:
+        pos_avg.append(v)
+    elif v<0:
+        neg_avg.append(v)
+
+pos_avg = sum(pos_avg)/len(pos_avg)
+neg_avg = sum(neg_avg)/len(neg_avg)
+
 #print(training_dict)
 
 for k,v in training_dict.items():
@@ -138,7 +149,7 @@ for tup in testing_documents:
     pos_neg = tup[1]
     for w in words:
         if w in training_dict:
-            # if training_dict[w]>100 or training_dict[w]<-100:
+             if training_dict[w]>=pos_avg or training_dict[w]<=neg_avg:
                 # print(w)
                 # print(training_dict[w])
                 # print()
