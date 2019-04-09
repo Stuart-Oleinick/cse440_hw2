@@ -134,6 +134,8 @@ for v in training_dict.values():
 pos_avg = sum(pos_avg)/len(pos_avg)
 neg_avg = sum(neg_avg)/len(neg_avg)
 
+
+
 #print(training_dict)
 
 for k,v in training_dict.items():
