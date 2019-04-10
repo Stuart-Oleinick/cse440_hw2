@@ -24,14 +24,14 @@ negTestList = [NEG_TEST_PATH+f for f in os.listdir(NEG_TEST_PATH)]
 testing_documents = []
 
 for file in posTestList:
-    with open(file,'r') as f:
+    with open(file,'r',encoding='ISO-8859-1') as f:
         rawText = f.read()
         cleanText = tokenizer.tokenize(rawText)
         #cleanText = [word for word in cleanText if word not in string.punctuation]
         testing_documents.append((cleanText,'pos'))
 
 for file in negTestList:
-    with open(file,'r') as f:
+    with open(file,'r',encoding='ISO-8859-1') as f:
         rawText = f.read()
         cleanText = tokenizer.tokenize(rawText)
         #cleanText = [word for word in cleanText if word not in string.punctuation]
@@ -46,14 +46,14 @@ negFileList = [NEG_PATH+f for f in os.listdir(NEG_PATH)]
 training_documents = []
 
 for file in posFileList:
-    with open(file,'r') as f:
+    with open(file,'r',encoding='ISO-8859-1') as f:
         rawText = f.read()
         cleanText = tokenizer.tokenize(rawText)
         #cleanText = [word for word in cleanText if word not in string.punctuation]
         training_documents.append((cleanText,'pos'))
 
 for file in negFileList:
-    with open(file,'r') as f:
+    with open(file,'r',encoding='ISO-8859-1') as f:
         rawText = f.read()
         cleanText = tokenizer.tokenize(rawText)
         #cleanText = [word for word in cleanText if word not in string.punctuation]
@@ -90,7 +90,7 @@ testing_featuresets =  [(find_features(rev),category) for (rev,category) in test
 
 #classifier.show_most_informative_features(15)
 
-#print(training_featuresets[0])
+print(training_featuresets[0])
 
 right_wrong = 0
 
@@ -149,12 +149,9 @@ for tup in testing_documents:
     count = 0
     words = tup[0]
     pos_neg = tup[1]
-    for w in words:
+    for w in set(words):
         if w in training_dict:
              if training_dict[w]>=pos_avg or training_dict[w]<=neg_avg:
-                # print(w)
-                # print(training_dict[w])
-                # print()
                 count+=training_dict[w]
     if count>0 and pos_neg == 'pos':
         right_wrong+=1
